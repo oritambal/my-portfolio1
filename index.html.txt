@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interactive Avatar</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .avatar {
+      position: relative;
+      width: 200px;
+      height: 250px;
+    }
+
+    .head {
+      width: 100%;
+      height: 100%;
+    }
+
+    .eye {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: white;
+      border-radius: 50%;
+      top: 80px;
+    }
+
+    .eye.left {
+      left: 50px;
+    }
+
+    .eye.right {
+      right: 50px;
+    }
+
+    .pupil {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: black;
+      border-radius: 50%;
+      top: 10px;
+      left: 10px;
+      transition: transform 0.1s;
+    }
+  </style>
+</head>
+<body>
+  <div class="avatar">
+    <!-- ציור ראש פשוט ב-SVG -->
+    <svg class="head" viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="125" r="100" fill="#f5c59e" />
+    </svg>
+
+    <!-- עיניים -->
+    <div class="eye left">
+      <div class="pupil" id="pupil-left"></div>
+    </div>
+    <div class="eye right">
+      <div class="pupil" id="pupil-right"></div>
+    </div>
+  </div>
+
+  <script>
+    const leftPupil = document.getElementById('pupil-left');
+    const rightPupil = document.getElementById('pupil-right');
+
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX / window.innerWidth - 0.5;
+      const y = e.clientY / window.innerHeight - 0.5;
+
+      const moveX = x * 10;
+      const moveY = y * 10;
+
+      leftPupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      rightPupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
+  </script>
+</body>
+</html>
